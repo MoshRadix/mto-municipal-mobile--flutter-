@@ -1,0 +1,110 @@
+name: nala_addu
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.2
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Cupertino icons for iOS design language
+  cupertino_icons: ^1.0.8
+
+  # State Management
+  provider: ^6.1.2
+
+  # Networking & Authentication
+  http: ^1.2.2
+  flutter_secure_storage: ^9.2.2
+  shared_preferences: ^2.2.3
+
+  # Database (Offline Store)
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path_provider: ^2.1.3
+
+  # Device Hardware Integration
+  geolocator: ^13.0.2
+  geocoding: ^4.0.0
+  image_picker: ^1.1.2
+
+  # Connectivity
+  connectivity_plus: ^6.0.5
+  workmanager: ^0.9.0+3
+  flutter_image_compress: ^2.4.0
+
+  # Formatting & Localisation
+  intl: ^0.19.0
+  uuid: ^4.5.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  hive_generator: ^2.0.1
+  build_runner: ^2.4.9
+  flutter_launcher_icons: ^0.14.4
+
+dependency_overrides:
+  flutter_image_compress_common:
+    path: third_party/flutter_image_compress_common
+  workmanager_android:
+    path: third_party/workmanager_android
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: assets/icon/riyethi_addu.png
+  adaptive_icon_background: "#083A88"
+  adaptive_icon_foreground: assets/icon/riyethi_addu.png
+  adaptive_icon_foreground_inset: 16
+  remove_alpha_ios: true
+  web:
+    generate: true
+    image_path: assets/icon/riyethi_addu.png
+    background_color: "#071421"
+    theme_color: "#124AA0"
+  windows:
+    generate: true
+    image_path: assets/icon/riyethi_addu.png
+    icon_size: 256
+  macos:
+    generate: true
+    image_path: assets/icon/riyethi_addu.png
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/images/logo.png
+
+  fonts:
+    - family: Faruma
+      fonts:
+        - asset: assets/fonts/Faruma.ttf
+
