@@ -23,7 +23,7 @@ class WatermarkService {
 
     final Uint8List imageBytes = await imageFile.readAsBytes();
     final ByteData logoData = await rootBundle.load(
-      'assets/images/adducity_logo.png',
+      'assets/images/nala_addu_logo.png',
     );
 
     // Decode image to get width and height
@@ -80,7 +80,7 @@ class WatermarkService {
 
     final String councilText = isDhivehi
         ? 'އައްޑޫ ސިޓީ ކައުންސިލް'
-        : 'Addu City Council';
+        : 'Addu City';
     final String safeTitle = issueTitle.trim().isEmpty
         ? (isDhivehi ? 'ސުރުޚީއެއް ނެތް' : 'Untitled issue')
         : issueTitle.trim();

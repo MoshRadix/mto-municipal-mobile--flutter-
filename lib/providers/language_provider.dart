@@ -46,7 +46,7 @@ class LanguageProvider with ChangeNotifier {
 
   static const Map<String, String> _enTranslations = {
     "title": "Municipal Issue Reporting",
-    "council": "Addu City Council",
+    "council": "Addu City",
     "loginTitle": "Staff Login",
     "loginSubtitle": "Municipal Issue Reporting System",
     "preparingWorkspace": "Preparing workspace",
@@ -146,7 +146,7 @@ class LanguageProvider with ChangeNotifier {
 
   static const Map<String, String> _dvTranslations = {
     "title": "މުނިސިޕަލް މައްސަލަ ރިޕޯޓްކުރުން",
-    "council": "އައްޑޫ ސިޓީ ކައުންސިލް",
+    "council": "އައްޑޫ ސިޓީ",
     "loginTitle": "މުވައްޒަފުން ވަނުމަށް",
     "loginSubtitle": "މުނިސިޕަލް މައްސަލަ ރިޕޯޓްކުރާ ނިޒާމް",
     "preparingWorkspace": "ނިޒާމް ތައްޔާރުކުރަނީ",

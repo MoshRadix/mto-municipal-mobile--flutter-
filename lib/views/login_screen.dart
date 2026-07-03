@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ],
                                   ),
                                   child: Image.asset(
-                                    'assets/images/logo.png',
+                                    'assets/images/nala_addu_logo.png',
                                     fit: BoxFit.contain,
                                   ),
                                 ),

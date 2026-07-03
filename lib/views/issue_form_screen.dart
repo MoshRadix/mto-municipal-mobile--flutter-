@@ -198,7 +198,11 @@ class _IssueFormScreenState extends State<IssueFormScreen> {
           ),
           title: Row(
             children: [
-              Image.asset('assets/images/logo.png', height: 36, width: 36),
+              Image.asset(
+                'assets/images/nala_addu_logo.png',
+                height: 36,
+                width: 36,
+              ),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(

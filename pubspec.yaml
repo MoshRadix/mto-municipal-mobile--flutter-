@@ -78,30 +78,30 @@ dependency_overrides:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: assets/icon/riyethi_addu.png
+  image_path: assets/icon/nala_addu.png
   adaptive_icon_background: "#083A88"
-  adaptive_icon_foreground: assets/icon/riyethi_addu.png
+  adaptive_icon_foreground: assets/icon/nala_addu.png
   adaptive_icon_foreground_inset: 16
   remove_alpha_ios: true
   web:
     generate: true
-    image_path: assets/icon/riyethi_addu.png
+    image_path: assets/icon/nala_addu.png
     background_color: "#071421"
     theme_color: "#124AA0"
   windows:
     generate: true
-    image_path: assets/icon/riyethi_addu.png
+    image_path: assets/icon/nala_addu.png
     icon_size: 256
   macos:
     generate: true
-    image_path: assets/icon/riyethi_addu.png
+    image_path: assets/icon/nala_addu.png
 
 flutter:
   uses-material-design: true
 
   assets:
     - assets/images/
-    - assets/images/logo.png
+    - assets/images/nala_addu_logo.png
 
   fonts:
     - family: Faruma

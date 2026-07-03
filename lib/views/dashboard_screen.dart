@@ -109,7 +109,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
           elevation: 0,
           title: Row(
             children: [
-              Image.asset('assets/images/logo.png', height: 32, width: 32),
+              Image.asset(
+                'assets/images/nala_addu_logo.png',
+                height: 32,
+                width: 32,
+              ),
               const SizedBox(width: 8),
               Expanded(
                 child: Column(

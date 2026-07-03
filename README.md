@@ -1,6 +1,6 @@
 # Nala Addu
 
-Addu City Council municipal issue reporting app.
+Addu City municipal issue reporting app.
 
 ## Scalable issue pipeline
 
