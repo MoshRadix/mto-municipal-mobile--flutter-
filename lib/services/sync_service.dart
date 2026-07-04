@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'api_service.dart';
 import 'database_service.dart';
+import 'package:flutter/foundation.dart';
 
 class SyncService {
   static const int batchSize = 5;
@@ -15,11 +16,7 @@ class SyncService {
   void Function()? onSyncComplete;
   void Function(String message)? onSyncError;
 
-  SyncService({
-    required ApiService apiService,
-    required DatabaseService dbService,
-  }) : _apiService = apiService,
-       _dbService = dbService;
+  SyncService({required this._apiService, required this._dbService});
 
   // Initialize connectivity monitoring
   void initMonitoring() {
@@ -30,7 +27,7 @@ class SyncService {
         (result) => result != ConnectivityResult.none,
       );
       if (hasConnection) {
-        print('Network connection detected, triggering auto sync...');
+        debugPrint('Network connection detected, triggering auto sync...');
         syncNow();
       }
     });
@@ -60,18 +57,18 @@ class SyncService {
     } catch (_) {}
 
     if (cookie == null) {
-      print('Sync skipped: User is not authenticated.');
+      debugPrint('Sync skipped: User is not authenticated.');
       return;
     }
 
     final drafts = await _dbService.getDrafts();
     if (drafts.isEmpty) {
-      print('Sync: No local drafts to sync.');
+      debugPrint('Sync: No local drafts to sync.');
       return;
     }
 
     _isSyncing = true;
-    print('Sync: Starting sync for ${drafts.length} drafts...');
+    debugPrint('Sync: Starting sync for ${drafts.length} drafts...');
 
     int successCount = 0;
     int failCount = 0;
@@ -91,7 +88,7 @@ class SyncService {
             await _dbService.deleteDraft(draft.id);
             return true;
           } catch (e) {
-            print('Error syncing draft ${draft.id}: $e');
+            debugPrint('Error syncing draft ${draft.id}: $e');
             return false;
           }
         }),

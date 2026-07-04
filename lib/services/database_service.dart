@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../models/issue.dart';
+import 'package:flutter/foundation.dart';
 
 class DatabaseService {
   static const int maxCachedIssues = 500;
@@ -43,7 +44,7 @@ class DatabaseService {
         try {
           drafts.add(Issue.fromJson(json.decode(jsonStr)));
         } catch (e) {
-          print('Error parsing local draft: $e');
+          debugPrint('Error parsing local draft: $e');
         }
       }
     }
@@ -104,7 +105,7 @@ class DatabaseService {
             issues.add(issue);
           }
         } catch (e) {
-          print('Error parsing cached issue: $e');
+          debugPrint('Error parsing cached issue: $e');
         }
       }
     }

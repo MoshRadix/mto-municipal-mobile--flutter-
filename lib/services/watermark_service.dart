@@ -23,7 +23,7 @@ class WatermarkService {
 
     final Uint8List imageBytes = await imageFile.readAsBytes();
     final ByteData logoData = await rootBundle.load(
-      'assets/images/nala_addu_logo.png',
+      'assets/images/nala_addu_logo.jpg',
     );
 
     // Decode image to get width and height
@@ -54,7 +54,6 @@ class WatermarkService {
     final double supportingFontSize = bodyFontSize * 0.9;
     final double logoBadgeHeight = bodyFontSize * 2.25;
     final double logoBadgeWidth = logoBadgeHeight;
-    final double logoBadgePadding = logoBadgeHeight * 0.1;
     final double brandingGap = bodyFontSize * 0.55;
 
     // Determine Maldives Time (UTC+5)
@@ -80,7 +79,7 @@ class WatermarkService {
 
     final String councilText = isDhivehi
         ? 'އައްޑޫ ސިޓީ ކައުންސިލް'
-        : 'Addu City';
+        : 'ADDU CITY COUNCIL';
     final String safeTitle = issueTitle.trim().isEmpty
         ? (isDhivehi ? 'ސުރުޚީއެއް ނެތް' : 'Untitled issue')
         : issueTitle.trim();
@@ -274,30 +273,25 @@ class WatermarkService {
         ..style = ui.PaintingStyle.stroke
         ..strokeWidth = math.max(1.0, shortestSide * 0.0015),
     );
-    final double logoAspect = councilLogo.width / councilLogo.height;
-    final double availableLogoWidth = logoBadgeWidth - logoBadgePadding * 2;
-    final double availableLogoHeight = logoBadgeHeight - logoBadgePadding * 2;
-    final double renderedLogoWidth = math.min(
-      availableLogoWidth,
-      availableLogoHeight * logoAspect,
+    // Crop the source lockup around its emblem and clip it to the badge so
+    // square corners cannot appear inside the circular watermark.
+    final double sourceWidth = councilLogo.width.toDouble();
+    final double sourceHeight = councilLogo.height.toDouble();
+    final double cropSize = math.min(sourceWidth, sourceHeight) * 0.58;
+    final ui.Rect logoSource = ui.Rect.fromCenter(
+      center: ui.Offset(sourceWidth * 0.5, sourceHeight * 0.37),
+      width: cropSize,
+      height: cropSize,
     );
-    final double renderedLogoHeight = renderedLogoWidth / logoAspect;
+    canvas.save();
+    canvas.clipPath(ui.Path()..addOval(logoBadge));
     canvas.drawImageRect(
       councilLogo,
-      ui.Rect.fromLTWH(
-        0,
-        0,
-        councilLogo.width.toDouble(),
-        councilLogo.height.toDouble(),
-      ),
-      ui.Rect.fromLTWH(
-        logoLeft + (logoBadgeWidth - renderedLogoWidth) / 2,
-        currentY + (logoBadgeHeight - renderedLogoHeight) / 2,
-        renderedLogoWidth,
-        renderedLogoHeight,
-      ),
+      logoSource,
+      logoBadge,
       ui.Paint()..filterQuality = ui.FilterQuality.high,
     );
+    canvas.restore();
 
     final double brandingTextX = logoLeft + logoBadgeWidth + brandingGap;
     brandingPainter.paint(

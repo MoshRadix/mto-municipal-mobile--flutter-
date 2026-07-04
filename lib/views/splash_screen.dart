@@ -112,10 +112,9 @@ class _SplashScreenState extends State<SplashScreen>
                           Container(
                             width: 148,
                             height: 148,
-                            padding: const EdgeInsets.all(22),
                             decoration: BoxDecoration(
                               color: Colors.white.withValues(alpha: 0.94),
-                              borderRadius: BorderRadius.circular(40),
+                              shape: BoxShape.circle,
                               border: Border.all(
                                 color: const Color(0xFFD5E8E8),
                               ),
@@ -129,9 +128,13 @@ class _SplashScreenState extends State<SplashScreen>
                                 ),
                               ],
                             ),
-                            child: Image.asset(
-                              'assets/images/nala_addu_logo.png',
-                              fit: BoxFit.contain,
+                            child: ClipOval(
+                              child: Image.asset(
+                                'assets/images/nala_addu_logo.jpg',
+                                width: 148,
+                                height: 148,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                           const SizedBox(height: 30),

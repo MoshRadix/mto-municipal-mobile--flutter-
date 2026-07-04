@@ -72,7 +72,8 @@ class _IssueFormScreenState extends State<IssueFormScreen> {
         _fetchingGps = false;
       });
     } catch (e) {
-      print('GPS capture error: $e');
+      debugPrint('GPS capture error: $e');
+      if (!mounted) return;
       setState(() {
         _fetchingGps = false;
         _readableAddress = 'Location unavailable';
@@ -98,6 +99,7 @@ class _IssueFormScreenState extends State<IssueFormScreen> {
 
       if (image == null) return;
 
+      if (!mounted) return;
       setState(() {
         _processingPhoto = true;
       });
@@ -145,7 +147,7 @@ class _IssueFormScreenState extends State<IssueFormScreen> {
         _processingPhoto = false;
       });
     } catch (e) {
-      print('Photo picking/watermarking error: $e');
+      debugPrint('Photo picking/watermarking error: $e');
       setState(() {
         _processingPhoto = false;
       });
@@ -199,7 +201,7 @@ class _IssueFormScreenState extends State<IssueFormScreen> {
           title: Row(
             children: [
               Image.asset(
-                'assets/images/nala_addu_logo.png',
+                'assets/images/nala_addu_logo.jpg',
                 height: 36,
                 width: 36,
               ),
@@ -349,7 +351,7 @@ class _IssueFormScreenState extends State<IssueFormScreen> {
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: const Color(
                                       0xFF0D9488,
-                                    ).withOpacity(0.1),
+                                    ).withValues(alpha: 0.1),
                                     foregroundColor: const Color(0xFF0D9488),
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
@@ -438,7 +440,7 @@ class _IssueFormScreenState extends State<IssueFormScreen> {
                           ),
                           const SizedBox(height: 6),
                           DropdownButtonFormField<String>(
-                            value: _category,
+                            initialValue: _category,
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 12,
@@ -610,7 +612,7 @@ class _IssueFormScreenState extends State<IssueFormScreen> {
                                         child: CircleAvatar(
                                           radius: 12,
                                           backgroundColor: Colors.black
-                                              .withOpacity(0.6),
+                                              .withValues(alpha: 0.6),
                                           child: const Icon(
                                             Icons.close,
                                             size: 14,
@@ -631,7 +633,7 @@ class _IssueFormScreenState extends State<IssueFormScreen> {
                                         decoration: BoxDecoration(
                                           color: const Color(
                                             0xFF0D9488,
-                                          ).withOpacity(0.9),
+                                          ).withValues(alpha: 0.9),
                                           borderRadius: BorderRadius.circular(
                                             4,
                                           ),

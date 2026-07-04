@@ -38,37 +38,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final String url = _urlController.text.trim();
     if (url.isEmpty) return;
 
+    final issueProvider = Provider.of<IssueProvider>(context, listen: false);
+
     setState(() {
       _savingUrl = true;
     });
 
     await _apiService.setBaseUrl(url);
-
-    // Reload issues in case URL has changed
-    final issueProvider = Provider.of<IssueProvider>(context, listen: false);
     await issueProvider.loadIssues();
 
+    if (!mounted) return;
     setState(() {
       _savingUrl = false;
     });
 
-    if (mounted) {
-      final t = Provider.of<LanguageProvider>(context, listen: false).t;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            t('save') == 'Save Changes'
-                ? 'API URL updated successfully!'
-                : 'އޭޕީއައި ޔޫއާރްއެލް އަޕްޑޭޓް ކުރެވިއްޖެ',
-            style: const TextStyle(),
-          ),
-          backgroundColor: const Color(0xFF0D9488),
+    final t = Provider.of<LanguageProvider>(context, listen: false).t;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          t('save') == 'Save Changes'
+              ? 'API URL updated successfully!'
+              : 'އޭޕީއައި ޔޫއާރްއެލް އަޕްޑޭޓް ކުރެވިއްޖެ',
+          style: const TextStyle(),
         ),
-      );
-    }
+        backgroundColor: const Color(0xFF0D9488),
+      ),
+    );
   }
 
   void _resetUrl() async {
+    final issueProvider = Provider.of<IssueProvider>(context, listen: false);
+
     setState(() {
       _savingUrl = true;
     });
@@ -76,24 +76,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
     await _apiService.setBaseUrl(ApiService.defaultBaseUrl);
     _urlController.text = ApiService.defaultBaseUrl;
 
-    // Reload issues in case URL has changed
-    final issueProvider = Provider.of<IssueProvider>(context, listen: false);
     await issueProvider.loadIssues();
 
+    if (!mounted) return;
     setState(() {
       _savingUrl = false;
     });
 
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'API URL reset to production Vercel server.',
-            style: TextStyle(),
-          ),
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'API URL reset to production Vercel server.',
+          style: TextStyle(),
         ),
-      );
-    }
+      ),
+    );
   }
 
   @override
@@ -140,7 +137,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         radius: 28,
                         backgroundColor: const Color(
                           0xFF0D9488,
-                        ).withOpacity(0.15),
+                        ).withValues(alpha: 0.15),
                         child: const Icon(
                           Icons.person,
                           size: 36,
@@ -177,7 +174,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               decoration: BoxDecoration(
                                 color: const Color(
                                   0xFF0F172A,
-                                ).withOpacity(0.08),
+                                ).withValues(alpha: 0.08),
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
@@ -231,12 +228,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               ),
                               selected: languageProvider.locale == 'en',
                               onSelected: (selected) {
-                                if (selected)
+                                if (selected) {
                                   languageProvider.setLanguage('en');
+                                }
                               },
                               selectedColor: const Color(
                                 0xFF0D9488,
-                              ).withOpacity(0.15),
+                              ).withValues(alpha: 0.15),
                               labelStyle: TextStyle(
                                 color: languageProvider.locale == 'en'
                                     ? const Color(0xFF0D9488)
@@ -256,12 +254,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               ),
                               selected: languageProvider.locale == 'dv',
                               onSelected: (selected) {
-                                if (selected)
+                                if (selected) {
                                   languageProvider.setLanguage('dv');
+                                }
                               },
                               selectedColor: const Color(
                                 0xFF0D9488,
-                              ).withOpacity(0.15),
+                              ).withValues(alpha: 0.15),
                               labelStyle: TextStyle(
                                 color: languageProvider.locale == 'dv'
                                     ? const Color(0xFF0D9488)

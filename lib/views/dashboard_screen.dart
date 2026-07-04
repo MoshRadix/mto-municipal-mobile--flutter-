@@ -107,10 +107,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
           backgroundColor: Colors.white,
           foregroundColor: const Color(0xFF16323A),
           elevation: 0,
+          scrolledUnderElevation: 0,
+          surfaceTintColor: Colors.transparent,
           title: Row(
             children: [
               Image.asset(
-                'assets/images/nala_addu_logo.png',
+                'assets/images/nala_addu_logo.jpg',
                 height: 32,
                 width: 32,
               ),
@@ -122,9 +124,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Text(
                       t('council'),
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: const Color(0xFF16323A),
+                        color: Color(0xFF16323A),
                       ),
                     ),
                     Text(
@@ -154,7 +156,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               tooltip: 'Sign Out',
               onPressed: () async {
                 await authProvider.logout();
-                if (mounted) {
+                if (context.mounted) {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (_) => const LoginScreen()),
                   );
@@ -585,7 +587,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 // Category Filter
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    value: provider.categoryFilter,
+                    initialValue: provider.categoryFilter,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(
                         horizontal: 10,
@@ -623,7 +625,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 // Status Filter
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    value: provider.statusFilter,
+                    initialValue: provider.statusFilter,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(
                         horizontal: 10,
@@ -740,7 +742,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [
             Expanded(
               child: Text(
-                t('cat_${issue.category}'),
+                issue.title,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 13,
@@ -773,7 +775,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
-                color: _getStatusColor(issue.status).withOpacity(0.15),
+                color: _getStatusColor(issue.status).withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Text(
@@ -788,10 +790,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ],
         ),
         subtitle: Padding(
-          padding: const EdgeInsets.only(top: 6.0),
+          padding: EdgeInsets.zero,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const Divider(height: 13, thickness: 1, color: Color(0xFFE2EBED)),
               Row(
                 children: [
                   const Icon(

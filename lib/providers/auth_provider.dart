@@ -10,7 +10,7 @@ class AuthProvider with ChangeNotifier {
   bool _isAuthenticated = false;
   String? _errorMessage;
 
-  AuthProvider({required ApiService apiService}) : _apiService = apiService {
+  AuthProvider({required this._apiService}) {
     checkAuthStatus();
   }
 
@@ -36,13 +36,13 @@ class AuthProvider with ChangeNotifier {
           final verifiedUser = await _apiService.fetchProfile();
           _currentUser = verifiedUser;
         } catch (e) {
-          print('Cached session expired: $e');
+          debugPrint('Cached session expired: $e');
           // Session expired, log out silently
           await logout();
         }
       }
     } catch (e) {
-      print('Check auth status error: $e');
+      debugPrint('Check auth status error: $e');
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -78,7 +78,7 @@ class AuthProvider with ChangeNotifier {
     try {
       await _apiService.clearSession();
     } catch (e) {
-      print('Logout API clear error: $e');
+      debugPrint('Logout API clear error: $e');
     }
 
     _currentUser = null;

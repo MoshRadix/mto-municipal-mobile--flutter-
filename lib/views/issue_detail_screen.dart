@@ -318,7 +318,7 @@ class _IssueDetailScreenState extends State<IssueDetailScreen> {
                                   decoration: BoxDecoration(
                                     color: _getStatusColor(
                                       _selectedStatus ?? widget.issue.status,
-                                    ).withOpacity(0.15),
+                                    ).withValues(alpha: 0.15),
                                     borderRadius: BorderRadius.circular(6),
                                   ),
                                   child: Text(
@@ -379,7 +379,7 @@ class _IssueDetailScreenState extends State<IssueDetailScreen> {
                                 ),
                                 const SizedBox(height: 4),
                                 DropdownButtonFormField<String>(
-                                  value: _selectedStatus,
+                                  initialValue: _selectedStatus,
                                   items: [
                                     DropdownMenuItem(
                                       value: 'pending',
@@ -576,7 +576,7 @@ class _IssueDetailScreenState extends State<IssueDetailScreen> {
 
                               // Status Dropdown
                               DropdownButtonFormField<String>(
-                                value: _selectedStatus,
+                                initialValue: _selectedStatus,
                                 decoration: InputDecoration(
                                   labelText: t('colStatus'),
                                   labelStyle: const TextStyle(),
@@ -622,7 +622,7 @@ class _IssueDetailScreenState extends State<IssueDetailScreen> {
 
                               // Assignee Dropdown (Admins only)
                               DropdownButtonFormField<String>(
-                                value: _selectedAssignee,
+                                initialValue: _selectedAssignee,
                                 decoration: InputDecoration(
                                   labelText: t('assignToUser'),
                                   labelStyle: const TextStyle(),

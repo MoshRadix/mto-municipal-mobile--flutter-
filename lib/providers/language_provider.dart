@@ -7,8 +7,7 @@ class LanguageProvider with ChangeNotifier {
 
   String _locale = 'en'; // 'en' or 'dv'
 
-  LanguageProvider({required DatabaseService dbService})
-    : _dbService = dbService {
+  LanguageProvider({required this._dbService}) {
     _loadLanguage();
   }
 

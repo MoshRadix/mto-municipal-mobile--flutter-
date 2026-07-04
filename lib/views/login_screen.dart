@@ -126,10 +126,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Container(
                                   width: 88,
                                   height: 88,
-                                  padding: const EdgeInsets.all(12),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: const Color(0xFFD5E8E8),
+                                    ),
                                     boxShadow: [
                                       BoxShadow(
                                         color: const Color(
@@ -140,9 +142,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ],
                                   ),
-                                  child: Image.asset(
-                                    'assets/images/nala_addu_logo.png',
-                                    fit: BoxFit.contain,
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      'assets/images/nala_addu_logo.jpg',
+                                      width: 88,
+                                      height: 88,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),

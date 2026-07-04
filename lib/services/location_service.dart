@@ -1,5 +1,6 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:flutter/foundation.dart';
 
 class LocationService {
   // Check permission and fetch coordinates + address
@@ -29,8 +30,10 @@ class LocationService {
 
     // Get current position
     final position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-      timeLimit: const Duration(seconds: 8),
+      locationSettings: const LocationSettings(
+        accuracy: LocationAccuracy.high,
+        timeLimit: Duration(seconds: 8),
+      ),
     );
 
     final String coordinates =
@@ -79,7 +82,7 @@ class LocationService {
         }
       }
     } catch (e) {
-      print('Reverse geocoding error: $e');
+      debugPrint('Reverse geocoding error: $e');
       readableAddress = 'Addu City, Maldives'; // Generic fallback
     }
 

@@ -33,15 +33,13 @@ class IssueProvider with ChangeNotifier {
   String _groupBy = 'date';
 
   IssueProvider({
-    required ApiService apiService,
-    required DatabaseService dbService,
-    required SyncService syncService,
-  }) : _apiService = apiService,
-       _dbService = dbService,
-       _syncService = syncService {
+    required this._apiService,
+    required this._dbService,
+    required this._syncService,
+  }) {
     // Configure sync listeners
     _syncService.onSyncComplete = () {
-      print('Sync succeeded, reloading issues...');
+      debugPrint('Sync succeeded, reloading issues...');
       loadIssues();
       loadDrafts();
     };
@@ -90,8 +88,9 @@ class IssueProvider with ChangeNotifier {
 
       // 3. Issue title filter
       if (_titleFilter.isNotEmpty) {
-        if (!issue.title.toLowerCase().contains(_titleFilter.toLowerCase()))
+        if (!issue.title.toLowerCase().contains(_titleFilter.toLowerCase())) {
           return false;
+        }
       }
 
       // 4. Assigned User Filter
@@ -201,7 +200,7 @@ class IssueProvider with ChangeNotifier {
       _localDrafts = await _dbService.getDrafts();
       notifyListeners();
     } catch (e) {
-      print('Error loading drafts: $e');
+      debugPrint('Error loading drafts: $e');
     }
   }
 
@@ -242,7 +241,7 @@ class IssueProvider with ChangeNotifier {
       _totalCount = result.total;
       await _dbService.cacheIssues(result.items);
     } catch (e) {
-      print('Online fetch failed: $e, loading from cache...');
+      debugPrint('Online fetch failed: $e, loading from cache...');
       _errorMessage =
           'Could not update issues from server. Displaying offline cached data.';
       final cached = await _dbService.getCachedIssues(
@@ -278,7 +277,7 @@ class IssueProvider with ChangeNotifier {
       _staffList = list;
       notifyListeners();
     } catch (e) {
-      print('Error loading staff directory: $e');
+      debugPrint('Error loading staff directory: $e');
     }
   }
 
@@ -311,7 +310,7 @@ class IssueProvider with ChangeNotifier {
       return true;
     } catch (e) {
       // 2. Online failed (e.g. no internet/timeout), save offline as draft
-      print('Online submission failed: $e. Saving offline as draft...');
+      debugPrint('Online submission failed: $e. Saving offline as draft...');
 
       final offlineIssue = Issue(
         id: const Uuid().v4(),

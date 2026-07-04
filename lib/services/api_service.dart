@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/foundation.dart';
 import '../models/user.dart';
 import '../models/issue.dart';
 import '../models/issue_page.dart';
@@ -74,7 +75,7 @@ class ApiService {
         }
       }
     } catch (e) {
-      print('CSRF fetch error: $e');
+      debugPrint('CSRF fetch error: $e');
     }
     return null;
   }
@@ -139,10 +140,7 @@ class ApiService {
       sessionCookie = sessionTokenMatch.group(1);
     }
 
-    if (sessionCookie == null) {
-      // Fallback: take the first part before semicolon if standard matches fail
-      sessionCookie = setCookie.split(';').first;
-    }
+    sessionCookie ??= setCookie.split(';').first;
 
     await _saveSessionCookie(sessionCookie);
 
@@ -199,7 +197,7 @@ class ApiService {
         return User.fromJson(json.decode(userStr));
       }
     } catch (e) {
-      print('Error getting cached user: $e');
+      debugPrint('Error getting cached user: $e');
     }
     return null;
   }
@@ -220,14 +218,16 @@ class ApiService {
       'limit': pageSize.toString(),
     };
     if (status != null && status != 'all') queryParams['status'] = status;
-    if (category != null && category != 'all')
+    if (category != null && category != 'all') {
       queryParams['category'] = category;
+    }
     if (title != null && title.isNotEmpty) {
       queryParams['title'] = title;
       queryParams['road'] = title;
     }
-    if (assignedTo != null && assignedTo != 'all')
+    if (assignedTo != null && assignedTo != 'all') {
       queryParams['assigned_to'] = assignedTo;
+    }
 
     final uri = Uri.parse(
       '$baseUrl/api/issues',
